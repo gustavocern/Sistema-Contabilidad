@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Salario</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background: #fff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th {
+            background: #007bff;
+            color: white;
+            padding: 15px;
+        }
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        input {
+            width: 100px;
+            text-align: center;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+        button:hover {
+            background: #218838;
+        }
+        .btn-eliminar {
+            background: #dc3545;
+            padding: 5px 10px;
+            font-size: 14px;
+        }
+        .btn-eliminar:hover {
+            background: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Calculadora de Salario</h1>
+    <table id="tablaEmpleados">
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Cargo</th>
+            <th>Salario Bruto</th>
+            <th>Seguro Social</th>
+            <th>AFP (7.25%)</th>
+            <th>Base para ISR</th>
+            <th>ISR</th>
+            <th>Patronal ISS (7.5%)</th>
+            <th>Patronal AFP (8.75%)</th>
+            <th>Salario Neto</th>
+            <th>Acciones</th>
+        </tr>
+    </table>
+    <button onclick="agregarEmpleado()">Agregar Empleado</button>
+    
+    <script>
+        function calcular(fila) {
+            let salarioBruto = parseFloat(fila.querySelector(".salarioBruto").value) || 0;
+            let seguroSocial = salarioBruto <= 1000 ? salarioBruto * 0.030 : 30;
+            let afp = salarioBruto * 0.0725;
+            let baseISR = salarioBruto - (seguroSocial + afp);
+            let isr = 0;
+            let patronalISS = salarioBruto * 0.075;
+            let patronalAFP = salarioBruto * 0.0875;
+            
+            if (baseISR > 472) {
+                if (baseISR <= 895.24) {
+                    isr = (baseISR - 472) * 0.1 + 17.67;
+                } else if (baseISR <= 2038.10) {
+                    isr = (baseISR - 895.24) * 0.2 + 60;
+                } else {
+                    isr = (baseISR - 2038.10) * 0.3 + 288.57;
+                }
+            }
+            
+            let salarioNeto = baseISR - isr;
+            
+            fila.querySelector(".seguroSocial").innerText = `$ ${seguroSocial.toFixed(2)}`;
+            fila.querySelector(".afp").innerText = `$ ${afp.toFixed(2)}`;
+            fila.querySelector(".baseISR").innerText = `$ ${baseISR.toFixed(2)}`;
+            fila.querySelector(".isr").innerText = `$ ${isr.toFixed(2)}`;
+            fila.querySelector(".patronalISS").innerText = `$ ${patronalISS.toFixed(2)}`;
+            fila.querySelector(".patronalAFP").innerText = `$ ${patronalAFP.toFixed(2)}`;
+            fila.querySelector(".salarioNeto").innerText = `$ ${salarioNeto.toFixed(2)}`;
+        }
+        
+        function agregarEmpleado() {
+            let tabla = document.getElementById("tablaEmpleados");
+            let fila = document.createElement("tr");
+            fila.innerHTML = `
+                <td><input type="text" class="nombre" placeholder="Nombre"></td>
+                <td><input type="text" class="apellido" placeholder="Apellido"></td>
+                <td><input type="text" class="cargo" placeholder="Cargo"></td>
+                <td><input type="number" class="salarioBruto" oninput="calcular(this.parentNode.parentNode)" placeholder="0.00"></td>
+                <td class="seguroSocial">$ 0.00</td>
+                <td class="afp">$ 0.00</td>
+                <td class="baseISR">$ 0.00</td>
+                <td class="isr">$ 0.00</td>
+                <td class="patronalISS">$ 0.00</td>
+                <td class="patronalAFP">$ 0.00</td>
+                <td class="salarioNeto">$ 0.00</td>
+                <td><button class="btn-eliminar" onclick="eliminarFila(this)">Eliminar</button></td>
+            `;
+            tabla.appendChild(fila);
+        }
+        
+        function eliminarFila(boton) {
+            let fila = boton.parentNode.parentNode;
+            fila.parentNode.removeChild(fila);
+        }
+    </script>
+</body>
+</html>
