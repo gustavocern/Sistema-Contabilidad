@@ -6,28 +6,44 @@
     <title>Calculadora de Salario</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('descarga.jpg') no-repeat center center fixed;
+            background-size: cover;
             text-align: center;
             padding: 20px;
+            color: #333;
+        }
+        h1 {
+            background: rgba(0, 123, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            color: white;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+            display: inline-block;
         }
         table {
-            width: 80%;
+            width: 90%;
             margin: 20px auto;
             border-collapse: collapse;
-            background: #fff;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
             overflow: hidden;
         }
         th {
-            background: #007bff;
+            background: linear-gradient(135deg, #007bff, #0056b3);
             color: white;
             padding: 15px;
+            font-size: 16px;
+            text-transform: uppercase;
         }
         td {
             padding: 12px;
             border-bottom: 1px solid #ddd;
+        }
+        tr:nth-child(even) {
+            background-color: rgba(249, 249, 249, 0.9);
         }
         input {
             width: 100px;
@@ -40,19 +56,21 @@
             background: #28a745;
             color: white;
             border: none;
-            padding: 10px 15px;
+            padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
             border-radius: 5px;
-            margin-top: 15px;
+            margin-top: 20px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
         }
         button:hover {
             background: #218838;
         }
         .btn-eliminar {
             background: #dc3545;
-            padding: 5px 10px;
+            padding: 5px 15px;
             font-size: 14px;
+            border-radius: 5px;
         }
         .btn-eliminar:hover {
             background: #c82333;
@@ -60,20 +78,20 @@
     </style>
 </head>
 <body>
-    <h1>Calculadora de Salario</h1>
+    <h1>Calculadora de Salario de Empleados</h1>
     <table id="tablaEmpleados">
         <tr>
             <th>Nombre</th>
             <th>Apellido</th>
             <th>Cargo</th>
-            <th>Salario Bruto</th>
-            <th>Seguro Social</th>
+            <th>Salario </th>
+            <th>ISSS</th>
             <th>AFP (7.25%)</th>
-            <th>Base para ISR</th>
+            <th>Renta Imponible</th>
             <th>ISR</th>
-            <th>Patronal ISS (7.5%)</th>
+            <th>Patronal ISSS (7.5%)</th>
             <th>Patronal AFP (8.75%)</th>
-            <th>Salario Neto</th>
+            <th>Salario liquida</th>
             <th>Acciones</th>
         </tr>
     </table>
