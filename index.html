@@ -104,9 +104,11 @@
             let afp = salarioBruto * 0.0725;
             let baseISR = salarioBruto - (seguroSocial + afp);
             let isr = 0;
-            let patronalISS = salarioBruto * 0.075;
+
+            // Modificación para ISSS Patronal
+            let patronalISS = salarioBruto > 1000 ? 75 : salarioBruto * 0.075;
             let patronalAFP = salarioBruto * 0.0875;
-            
+
             if (baseISR > 472) {
                 if (baseISR <= 895.24) {
                     isr = (baseISR - 472) * 0.1 + 17.67;
